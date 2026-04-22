@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jairapel International Corp — E-Waste Recycling</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #1a5c2a;
+    --green-mid: #2e7d3e;
+    --green-bright: #3aaa50;
+    --green-light: #e8f5eb;
+    --accent: #6fcf4a;
+    --white: #ffffff;
+    --gray-100: #f5f7f5;
+    --gray-200: #e2e8e2;
+    --gray-500: #6b7c6b;
+    --gray-700: #2d3a2d;
+    --text: #1a2b1a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── UX ANNOTATIONS ── */
+  .ux-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .badge-fix    { background: #d1fae5; color: #065f46; }
+  .badge-mental { background: #dbeafe; color: #1e40af; }
+  .badge-cog    { background: #fef9c3; color: #92400e; }
+  .badge-hick   { background: #fce7f3; color: #9d174d; }
+  .badge-gest   { background: #ede9fe; color: #5b21b6; }
+  .badge-fitts  { background: #fee2e2; color: #991b1b; }
+  .badge-access { background: #ffedd5; color: #9a3412; }
+
+  .annotation-panel {
+    background: #0f1f0f;
+    color: #c8e6c9;
+    font-family: 'DM Sans', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    padding: 28px 36px;
+    border-bottom: 3px solid var(--accent);
+  }
+  .annotation-panel h2 {
+    font-family: 'Syne', sans-serif;
+    color: var(--accent);
+    font-size: 18px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .annotation-panel ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 32px; }
+  .annotation-panel ul li::before { content: "→ "; color: var(--accent); }
+  @media(max-width:700px){ .annotation-panel ul { grid-template-columns: 1fr; } }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    background: var(--green-dark);
+    color: rgba(255,255,255,.8);
+    font-size: 12.5px;
+    padding: 8px 48px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .topbar a { color: inherit; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+  .topbar a:hover { color: var(--accent); }
+  .topbar svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* ── NAV ── FIX: Fitts, Mental Model, Gestalt ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 2px solid var(--green-light);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--green-dark);
+    text-decoration: none;
+    letter-spacing: -.01em;
+    line-height: 1.1;
+  }
+  .nav-logo span { color: var(--green-bright); }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-700);
+    text-decoration: none;
+    padding: 8px 16px;       /* FIX Fitts' Law: larger click targets */
+    border-radius: 8px;
+    transition: background .2s, color .2s;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    background: var(--green-light);
+    color: var(--green-dark);
+  }
+  .nav-cta {
+    background: var(--green-bright) !important;
+    color: var(--white) !important;
+    font-weight: 600 !important;
+    padding: 10px 22px !important;
+  }
+  .nav-cta:hover { background: var(--green-dark) !important; }
+
+  /* ── HERO ── FIX: Mental Model (clear hero purpose), Cognitive Load ── */
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--green-dark) 0%, #0d3a1a 60%, #1a5c2a 100%);
+    overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(106,207,74,.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(106,207,74,.07) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    right: -100px; top: -100px;
+    background: radial-gradient(circle, rgba(58,170,80,.22) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(106,207,74,.15);
+    border: 1px solid rgba(106,207,74,.3);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .hero-tag::before { content: "●"; font-size: 8px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    margin-bottom: 20px;
+  }
+  .hero h1 em { color: var(--accent); font-style: normal; }
+  .hero p {
+    font-size: 17px;
+    color: rgba(255,255,255,.72);
+    line-height: 1.7;
+    margin-bottom: 36px;
+    max-width: 460px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  /* FIX Fitts' Law: big, obvious buttons */
+  .btn-primary {
+    background: var(--accent);
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(106,207,74,.35); }
+  .btn-outline {
+    background: transparent;
+    color: rgba(255,255,255,.85);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 13px 28px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(255,255,255,.25);
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color .2s, color .2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Hero stats */
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .stat-card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 14px;
+    padding: 24px 20px;
+    backdrop-filter: blur(10px);
+  }
+  .stat-card .num {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-card .label {
+    font-size: 13px;
+    color: rgba(255,255,255,.6);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+  .stat-card.featured {
+    grid-column: span 2;
+    background: rgba(58,170,80,.12);
+    border-color: rgba(58,170,80,.3);
+    display: flex; align-items: center; gap: 16px;
+  }
+  .stat-card.featured .icon {
+    width: 48px; height: 48px;
+    background: var(--accent);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 22px;
+  }
+
+  /* ── TRUST BAR ── FIX: Gestalt Proximity/Similarity ── */
+  .trust-bar {
+    background: var(--green-dark);
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 10px;
+    color: rgba(255,255,255,.75);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .trust-item svg { width: 18px; height: 18px; color: var(--accent); flex-shrink: 0; }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 88px 48px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--green-bright);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    color: var(--gray-700);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 16px;
+    color: var(--gray-500);
+    line-height: 1.7;
+    max-width: 520px;
+    margin-bottom: 48px;
+  }
+
+  /* ── SERVICES ── FIX: Hick's Law (grouped), Gestalt, Cognitive Load ── */
+  .services-section { background: var(--gray-100); }
+  /* FIX Hick's Law: 9 services grouped into 3 clear categories, not 9 flat boxes */
+  .service-groups {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .service-group {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+    transition: box-shadow .25s, transform .25s;
+  }
+  .service-group:hover { box-shadow: 0 12px 36px rgba(0,0,0,.09); transform: translateY(-3px); }
+  .service-group-header {
+    background: var(--green-dark);
+    padding: 20px 24px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .service-group-icon {
+    width: 42px; height: 42px;
+    background: rgba(106,207,74,.2);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .service-group-header h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .service-group-body { padding: 20px 24px; }
+  .service-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 14px;
+    color: var(--gray-700);
+  }
+  .service-item:last-child { border-bottom: none; }
+  .service-item::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ── PRODUCTS ── FIX: Cognitive Load (card layout vs wall of text) ── */
+  .products-section { background: var(--white); }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .product-card {
+    border: 1.5px solid var(--gray-200);
+    border-radius: 14px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: border-color .2s, box-shadow .2s;
+    cursor: pointer;
+  }
+  .product-card:hover {
+    border-color: var(--green-bright);
+    box-shadow: 0 6px 24px rgba(58,170,80,.12);
+  }
+  .product-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .product-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray-700);
+    margin-bottom: 8px;
+  }
+  .product-card p {
+    font-size: 12.5px;
+    color: var(--gray-500);
+    line-height: 1.6;
+  }
+
+  /* ── ABOUT ── FIX: Mental Model (company credibility upfront) ── */
+  .about-section { background: var(--green-dark); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .about-text .section-title { color: var(--white); }
+  .about-text .section-sub { color: rgba(255,255,255,.65); }
+  .about-creds {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 32px;
+  }
+  .cred-item {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .cred-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .cred-text { font-size: 13px; color: rgba(255,255,255,.75); line-height: 1.5; }
+  .cred-text strong { display: block; color: var(--white); font-weight: 600; font-size: 13px; margin-bottom: 2px; }
+  .vm-cards { display: flex; flex-direction: column; gap: 16px; }
+  .vm-card {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .vm-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .vm-card p { font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.6; }
+  .values-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .value-pill {
+    background: rgba(106,207,74,.12);
+    border: 1px solid rgba(106,207,74,.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: rgba(255,255,255,.8);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .value-pill::before { content: "✦"; color: var(--accent); font-size: 10px; }
+
+  /* ── CTA BAND ── */
+  .cta-band {
+    background: linear-gradient(90deg, var(--green-bright), var(--green-mid));
+    padding: 56px 48px;
+    text-align: center;
+  }
+  .cta-band h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(24px, 3.5vw, 38px);
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -.02em;
+    margin-bottom: 12px;
+  }
+  .cta-band p { color: rgba(255,255,255,.8); font-size: 16px; margin-bottom: 28px; }
+  .btn-white {
+    background: var(--white);
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 36px;
+    border-radius: 10px;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.2); }
+
+  /* ── CONTACT ── FIX: Accessibility, Fitts, Gestalt Proximity ── */
+  .contact-section { background: var(--gray-100); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .contact-info h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--gray-700);
+    margin-bottom: 24px;
+  }
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 14px;
+    margin-bottom: 20px;
+  }
+  .contact-icon {
+    width: 40px; height: 40px;
+    background: var(--green-light);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+  .contact-detail-text strong { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--green-bright); margin-bottom: 4px; }
+  .contact-detail-text span { font-size: 14px; color: var(--gray-700); line-height: 1.6; display: block; }
+  .offices {
+    margin-top: 28px;
+    background: var(--white);
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid var(--gray-200);
+  }
+  .offices h4 { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--gray-700); margin-bottom: 14px; }
+  .office-region {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 13.5px; color: var(--gray-700);
+  }
+  .office-region:last-child { border-bottom: none; }
+  .region-tag {
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 100px;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  /* FIX Accessibility: labeled fields, good contrast, large targets */
+  .contact-form {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 36px;
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 4px 24px rgba(0,0,0,.06);
+  }
+  .contact-form h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--gray-700);
+    margin-bottom: 24px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 6px;    /* FIX Gestalt Proximity: label close to its input */
+  }
+  .form-group label .req { color: #e53e3e; margin-left: 2px; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 14px;    /* FIX Fitts' Law: large touch targets */
+    border: 1.5px solid var(--gray-200);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color .2s, box-shadow .2s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--green-bright);
+    box-shadow: 0 0 0 3px rgba(58,170,80,.12);  /* FIX Accessibility: visible focus ring */
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-submit {
+    width: 100%;
+    background: var(--green-bright);
+    color: var(--white);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 15px;          /* FIX Fitts' Law: full-width, tall submit button */
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-top: 6px;
+  }
+  .form-submit:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0d1f0d;
+    color: rgba(255,255,255,.6);
+    padding: 56px 48px 28px;
+  }
+  .footer-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .footer-brand { }
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .footer-logo span { color: var(--accent); }
+  .footer-desc { font-size: 13.5px; line-height: 1.7; max-width: 260px; margin-bottom: 20px; }
+  .footer-socials { display: flex; gap: 10px; }
+  .social-btn {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,.08);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,.7);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background .2s;
+  }
+  .social-btn:hover { background: var(--green-bright); color: var(--white); }
+  .footer-col h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a {
+    font-size: 13.5px;
+    color: rgba(255,255,255,.55);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .footer-col ul li a:hover { color: var(--accent); }
+  /* FIX: Certifications now actually shown */
+  .cert-badge {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.06);
+    border-radius: 8px;
+    padding: 9px 12px;
+    margin-bottom: 8px;
+    font-size: 12.5px;
+    color: rgba(255,255,255,.7);
+  }
+  .cert-badge::before { content: "✓"; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width: 900px) {
+    nav, section, .trust-bar, .topbar, footer { padding-left: 24px; padding-right: 24px; }
+    .hero-content { grid-template-columns: 1fr; padding: 60px 24px; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    .service-groups { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .cta-band { padding: 48px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- NAV — FIX: Fitts (large targets), Gestalt Similarity (CTA stands out) -->
+<!-- ═══════════════════════════════════════ -->
+<nav>
+  <a href="#" class="nav-logo">Jairapel<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us →</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- HERO — FIX: Mental Model, Cognitive Load, Fitts -->
+<!-- ═══════════════════════════════════════ -->
+<section class="hero" style="padding:0">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-tag">🇵🇭 Philippines' E-Waste Leader</div>
+      <h1>Responsible<br><em>E-Waste</em><br>Recycling.</h1>
+      <p>Jairapel International Corporation — DENR-compliant, Basel Convention approved, with active smelter contracts in Japan and Korea.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Get a Free Quote →</a>
+        <a href="#services" class="btn-outline">Our Services</a>
+      </div>
+    </div>
+    <!-- FIX Cognitive Load: replace wall of text with scannable stats -->
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="num">2017</div>
+        <div class="label">Basel Convention<br>Approved (Japan)</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">2+</div>
+        <div class="label">International Smelter<br>Contracts (JP & KR)</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">9</div>
+        <div class="label">Core Services<br>Offered</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">PH</div>
+        <div class="label">Nationwide<br>Satellite Offices</div>
+      </div>
+      <div class="stat-card featured">
+        <div class="icon">🏆</div>
+        <div>
+          <div class="num" style="font-size:18px">DENR Certified</div>
+          <div class="label">Fully registered & compliant with all Philippine environmental regulations</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR — FIX: Gestalt Proximity (credentials grouped visually) -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    DENR Compliant
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Basel Convention 2017
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    Bureau of Customs Registered
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+    Philippine Export Registered
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+    Filipino-Owned Company
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SERVICES — FIX: Hick's Law (grouped into 3), Gestalt, Cognitive Load -->
+<!-- ═══════════════════════════════════════ -->
+<section class="services-section" id="services">
+  <div class="section-inner">
+    <div class="section-tag">What We Do</div>
+    <h2 class="section-title">Full-Service E-Waste Solutions</h2>
+    <!-- FIX Hick's Law: 9 flat options → 3 clear groups reduces decision fatigue -->
+    <p class="section-sub">We grouped our 9 services into 3 clear categories so you can find exactly what you need faster.</p>
+    <div class="service-groups">
+      <!-- Group 1 -->
+      <div class="service-group">
+        <div class="service-group-header">
+          <div class="service-group-icon">📦</div>
+          <h3>Import & Export</h3>
+        </div>
+        <div class="service-group-body">
+          <div class="service-item">Importer of Electronic Scrap</div>
+          <div class="service-item">Importer of Metal Scrap</div>
+          <div class="service-item">Exporter of Hazardous Electronics Scrap</div>
+        </div>
+      </div>
+      <!-- Group 2 -->
+      <div class="service-group">
+        <div class="service-group-header">
+          <div class="service-group-icon">☣️</div>
+          <h3>Hazardous Waste Management</h3>
+        </div>
+        <div class="service-group-body">
+          <div class="service-item">Transport of Hazardous Waste</div>
+          <div class="service-item">Treatment of Hazardous Waste</div>
+          <div class="service-item">Storage of Hazardous Waste</div>
+          <div class="service-item">Destruction of Hazardous Waste</div>
+        </div>
+      </div>
+      <!-- Group 3 -->
+      <div class="service-group">
+        <div class="service-group-header">
+          <div class="service-group-icon">🏭</div>
+          <h3>Facility & Logistics</h3>
+        </div>
+        <div class="service-group-body">
+          <div class="service-item">TSD Facility Operations</div>
+          <div class="service-item">End-to-End Logistics</div>
+          <div class="service-item">On-site Waste Collection</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- PRODUCTS — FIX: Cognitive Load (scannable cards) -->
+<!-- ═══════════════════════════════════════ -->
+<section class="products-section" id="products">
+  <div class="section-inner">
+    <div class="section-tag">We Accept</div>
+    <h2 class="section-title">E-Waste Products We Recycle</h2>
+    <p class="section-sub">We buy and recycle all conditions — old stock, broken, defective, water-damaged, or scrapped.</p>
+    <div class="products-grid">
+      <div class="product-card">
+        <span class="product-icon">📡</span>
+        <h4>Telecom Boards</h4>
+        <p>Cell phone boards, PBX/telephone systems, switchboards, cell site boards in any condition</p>
+      </div>
+      <div class="product-card">
+        <span class="product-icon">🖥️</span>
+        <h4>Computer Motherboards</h4>
+        <p>Desktops, laptops, notebooks, servers — all brands and models including legacy 186–Pentium 4</p>
+      </div>
+      <div class="product-card">
+        <span class="product-icon">💾</span>
+        <h4>Computer Parts</h4>
+        <p>Processors, hard disks, CD/DVD drives, memory cards, video cards, sound cards, LAN cards</p>
+      </div>
+      <div class="product-card">
+        <span class="product-icon">⚡</span>
+        <h4>Any Electronic Waste</h4>
+        <p>ICs, gold pins, finger boards, ceramic chips, plastic chips, connectors, and all scrap electronics</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- ABOUT — FIX: Mental Model (credibility front & center) -->
+<!-- ═══════════════════════════════════════ -->
+<section class="about-section" id="about" style="padding-top:88px;padding-bottom:88px">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-tag" style="color:var(--accent)">Who We Are</div>
+        <h2 class="section-title">One of the Biggest E-Waste Recyclers in the Philippines</h2>
+        <p class="section-sub">A Filipino-owned company based in Bacoor, Cavite — fully registered, DENR-compliant, and internationally recognized.</p>
+        <!-- FIX Mental Model: credentials as scannable cards, not a paragraph buried in text -->
+        <div class="about-creds">
+          <div class="cred-item">
+            <span class="cred-icon">🏛️</span>
+            <div class="cred-text"><strong>DENR Compliant</strong>Fully registered with all Philippine environmental requirements</div>
+          </div>
+          <div class="cred-item">
+            <span class="cred-icon">🌐</span>
+            <div class="cred-text"><strong>Basel Convention</strong>Approved by Basel Convention in Japan (2017)</div>
+          </div>
+          <div class="cred-item">
+            <span class="cred-icon">🇯🇵</span>
+            <div class="cred-text"><strong>Japan Contract</strong>Active smelting partnership with Japan-based facility</div>
+          </div>
+          <div class="cred-item">
+            <span class="cred-icon">🇰🇷</span>
+            <div class="cred-text"><strong>Korea Contract</strong>Active smelting partnership with Korea-based facility</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="vm-cards">
+          <div class="vm-card">
+            <h4>🎯 Our Vision</h4>
+            <p>To be the Number 1 Treater and Exporter of Filipino Hazardous Waste in the World.</p>
+          </div>
+          <div class="vm-card">
+            <h4>🚀 Our Mission</h4>
+            <p>Dynamic, effective, and efficient disposal of environmental waste — building happiness with all interested parties.</p>
+          </div>
+          <div class="vm-card">
+            <h4>💎 Core Values</h4>
+            <div class="values-grid">
+              <div class="value-pill">Joy in Service</div>
+              <div class="value-pill">Transparency</div>
+              <div class="value-pill">Innovation</div>
+              <div class="value-pill">Integrity</div>
+              <div class="value-pill">Reliability</div>
+              <div class="value-pill">Stewardship</div>
+              <div class="value-pill">Global Network</div>
+              <div class="value-pill">Employee Health</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2>Committed to Safe, Environmentally Conscious Recycling</h2>
+  <p>Every part of your waste is disposed of or reused responsibly. We help reduce your carbon footprint.</p>
+  <a href="#contact" class="btn-white">Request a Pickup →</a>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CONTACT — FIX: Accessibility, Fitts, Gestalt Proximity -->
+<!-- ═══════════════════════════════════════ -->
+<section class="contact-section" id="contact">
+  <div class="section-inner">
+    <div class="section-tag">Get In Touch</div>
+    <h2 class="section-title">Let's Connect</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Main Office</h3>
+        <div class="contact-detail">
+          <div class="contact-icon">📍</div>
+          <div class="contact-detail-text">
+            <strong>Address</strong>
+            <span>Sitio Aroma, Longos, Brgy. Zapote V<br>Bacoor City, Cavite 4102</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">📞</div>
+          <div class="contact-detail-text">
+            <strong>Phone</strong>
+            <span>(+63) 046 504-6634<br>(+63) 0917-179-2503<br>(+63) 0949-194-9918</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-detail-text">
+            <strong>Email</strong>
+            <span>info@jairapelinternationalcorp.com<br>rose@jairapelinternationalcorp.com</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">🕐</div>
+          <div class="contact-detail-text">
+            <strong>Hours</strong>
+            <span>Monday – Friday, 8:00AM – 5:00PM</span>
+          </div>
+        </div>
+        <div class="offices">
+          <h4>🗺 Satellite Offices Nationwide</h4>
+          <div class="office-region">
+            <span class="region-tag">Luzon</span>
+            <span>Bicol · Metro Manila · Pampanga · Pangasinan · Nueva Ecija</span>
+          </div>
+          <div class="office-region">
+            <span class="region-tag">Visayas</span>
+            <span>Cebu · Iloilo · Leyte · Samar</span>
+          </div>
+          <div class="office-region">
+            <span class="region-tag">Mindanao</span>
+            <span>Davao · CDO · Butuan · GenSan · South Cotabato</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM — FIX: Accessibility (labels), Fitts (large inputs), Gestalt Proximity (label above field) -->
+      <div class="contact-form">
+        <h3>Send Us a Message</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name <span class="req">*</span></label>
+            <input type="text" id="fname" placeholder="Juan">
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name <span class="req">*</span></label>
+            <input type="text" id="lname" placeholder="Dela Cruz">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email Address <span class="req">*</span></label>
+            <input type="email" id="email" placeholder="juan@company.com">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone <span class="req">*</span></label>
+            <input type="tel" id="phone" placeholder="+63 9XX XXX XXXX">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="company">Company Name <span class="req">*</span></label>
+            <input type="text" id="company" placeholder="Your Company Inc.">
+          </div>
+          <div class="form-group">
+            <label for="position">Position / Title <span class="req">*</span></label>
+            <input type="text" id="position" placeholder="Environmental Officer">
+          </div>
+        </div>
+        <!-- FIX Hick's Law: service select is now clearly grouped -->
+        <div class="form-group">
+          <label for="service">Service Needed <span class="req">*</span></label>
+          <select id="service">
+            <option value="">— Select a service —</option>
+            <optgroup label="Import & Export">
+              <option>Import of Electronic Scrap</option>
+              <option>Import of Metal Scrap</option>
+              <option>Export of Hazardous Electronics Scrap</option>
+            </optgroup>
+            <optgroup label="Hazardous Waste Management">
+              <option>Transport of Hazardous Waste</option>
+              <option>Treatment of Hazardous Waste</option>
+              <option>Storage of Hazardous Waste</option>
+              <option>Destruction of Hazardous Waste</option>
+            </optgroup>
+            <optgroup label="Facility & Logistics">
+              <option>TSD Facility</option>
+              <option>Logistics</option>
+              <option>Other</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="msg">Message (Optional)</label>
+          <textarea id="msg" placeholder="Tell us about your e-waste disposal needs..."></textarea>
+        </div>
+        <!-- FIX Fitts' Law: full-width, tall submit button -->
+        <button class="form-submit" type="submit">
+          Send Message →
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FOOTER — FIX: Accessibility (contrast), Certifications (now visible) -->
+<!-- ═══════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">Jairapel<span>.</span></div>
+      <p class="footer-desc">One of the biggest E-Waste Recycling Companies in the Philippines. Filipino-owned, internationally certified.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" aria-label="Facebook">f</a>
+        <a href="#" class="social-btn" aria-label="Twitter">𝕏</a>
+        <a href="#" class="social-btn" aria-label="YouTube">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Import Electronic Scrap</a></li>
+        <li><a href="#">Import Metal Scrap</a></li>
+        <li><a href="#">Export Hazardous Scrap</a></li>
+        <li><a href="#">Hazardous Waste Mgmt</a></li>
+        <li><a href="#">TSD Facility</a></li>
+      </ul>
+    </div>
+    <!-- FIX Accessibility: Certifications section now actually shows certifications -->
+    <div class="footer-col">
+      <h4>Certifications</h4>
+      <div class="cert-badge">DENR Registered</div>
+      <div class="cert-badge">Basel Convention Approved</div>
+      <div class="cert-badge">Bureau of Customs</div>
+      <div class="cert-badge">Philippine Export Reg.</div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Jairapel International Corp. All Rights Reserved.</span>
+    <span style="color:rgba(255,255,255,.3)">Bacoor City, Cavite, Philippines</span>
+  </div>
+</footer>
+
+</body>
+</html>
